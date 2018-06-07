@@ -1,7 +1,7 @@
 package kube
 
 import (
-	"crypto/md5"
+	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
@@ -10,10 +10,10 @@ import (
 	"sync"
 
 	"github.com/gorilla/mux"
+	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/rest"
-	"github.com/pkg/errors"
 )
 
 type Kube struct {
@@ -241,7 +241,7 @@ func notImplemented(w http.ResponseWriter, r *http.Request) {
 }
 
 func getMD5Hash(text string) string {
-	hasher := md5.New()
+	hasher := sha256.New()
 	hasher.Write([]byte(text))
 	return hex.EncodeToString(hasher.Sum(nil))
 }

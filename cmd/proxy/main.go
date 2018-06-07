@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/saheienko/kube-api-proxy/pkg/proxy"
 	"log"
+
+	"github.com/saheienko/kube-api-proxy/pkg/proxy"
 )
 
 func main() {

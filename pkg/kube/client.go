@@ -3,13 +3,13 @@ package kube
 import (
 	"fmt"
 
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/runtime/serializer"
+	"k8s.io/client-go/discovery"
+	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientcmddapi "k8s.io/client-go/tools/clientcmd/api"
-	"k8s.io/apimachinery/pkg/runtime/serializer"
-	"k8s.io/client-go/kubernetes/scheme"
-	"k8s.io/client-go/discovery"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
 func RESTClientForGroupVersion(k *Kube, gv schema.GroupVersion) (rest.Interface, error) {
@@ -58,7 +58,7 @@ func buildConfig(addr string, auth Auth) (*rest.Config, error) {
 		},
 		CurrentContext: "sg-" + auth.Username,
 	}
-	return clientcmd.NewNonInteractiveClientConfig(cfg, "sg-" + auth.Username, &clientcmd.ConfigOverrides{}, nil).ClientConfig()
+	return clientcmd.NewNonInteractiveClientConfig(cfg, "sg-"+auth.Username, &clientcmd.ConfigOverrides{}, nil).ClientConfig()
 }
 
 func getAddr(host, port string) string {
