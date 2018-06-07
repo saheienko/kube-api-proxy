@@ -240,7 +240,7 @@ func notImplemented(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "not implemented!\n")
 }
 
-func getMD5Hash(text string) string {
+func getHash(text string) string {
 	hasher := sha256.New()
 	hasher.Write([]byte(text))
 	return hex.EncodeToString(hasher.Sum(nil))
