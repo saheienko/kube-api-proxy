@@ -57,7 +57,7 @@ func (s *Service) CreateKube(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	k.ID = getMD5Hash(k.APIHost + k.APIPort + k.Auth.Username)
+	k.ID = getHash(k.APIHost + k.APIPort + k.Auth.Username)
 	if k.ID == "" {
 		log.Printf("createKube: kube id: %q", k.ID)
 		http.Error(w, "", http.StatusInternalServerError)
