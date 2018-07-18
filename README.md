@@ -1,6 +1,21 @@
 # Demo time
 
 ```bash
+➜  kube-api-proxy git:(master) ✗ cat <<EOF > examples/minikube.json
+{
+  "id": "",
+  "apiHost": "$(minikube ip)",
+  "apiPort": "8443",
+  "auth": {
+    "username": "minikube",
+    "token": "",
+    "ca": "$(while read -r line; do echo -n $line;echo -n '\\n'; done <~/.minikube/ca.crt)",
+    "cert": "$(while read -r line; do echo -n $line;echo -n '\\n'; done <~/.minikube/client.crt)",
+    "key": "$(while read -r line; do echo -n $line;echo -n '\\n'; done <~/.minikube/client.key)"
+  }
+}
+EOF
+
 ➜  kube-api-proxy git:(master) ✗ curl -XPOST -d'@examples/minikube.json' localhost:8080/kubes
 has been added: 66ba4df77dfeeb1b74d0c709ab7d866ad71396efa741c45ca48a548ef260ee82
 
